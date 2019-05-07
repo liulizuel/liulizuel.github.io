@@ -1,213 +1,38 @@
-<!DOCTYPE html>
-<html lang=>
-  <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="keywords" content>
-  
-    <link rel="icon" href="/favicon.ico">
-  
-    
-  <title>2019/5/7 | Hexo</title>
-  <meta name="description" content>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+extends includes/layout.pug
 
-<body>
-  <header>
-  <div class="header-container">
-    <a class="logo" href="/">
-      <span>Hexo</span>
-    </a>
-    <ul class="right-header">
-      
-        <li class="nav-item">
-          
-            <a href="/" class="item-link">首页</a>
-          
-        </li>
-      
-        <li class="nav-item">
-          
-            <a href="/about" class="item-link">关于</a>
-          
-        </li>
-      
-        <li class="nav-item">
-          
-            <a href="/archives" class="item-link">归档</a>
-          
-        </li>
-      
-        <li class="nav-item">
-          
-            <a href="/tags" class="item-link">标签</a>
-          
-        </li>
-      
-    </ul>
-  </div>
-</header>
-
-  <main id="post">
-  <div class="content">
-    <article>
-      <section class="content markdown-body">
-        <h1>
-          2019/5/7
-        </h1>
-        <div class="post-meta">
-          <i class="fa fa-calendar" aria-hidden="true"></i> <time>
-            2019/05/07</time>
-          
-          
-        </div>
-        
-      </section>
-    </article>
-    
-    <!-- disqus 评论框 start -->
-    <div class="comment">
-      <div id="disqus_thread" class="disqus-thread">
-        <i>
-          Loading comments box needs to over the wall</i>
-      </div>
-    </div>
-    <!-- disqus 评论框 end -->
-    
-    
-    <!-- livere 评论框 start -->
-    <div class="comment">
-      <div id="lv-container" data-id="city" data-uid="your_livere_uid"></div>
-    </div>
-    <!-- livere 评论框 end -->
-    
-  </div>
-  <aside>
-    
-  </aside>
-</main>
-
-<!-- disqus 公共JS代码 -->
-<script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES * * */
-  var disqus_shortname = "your_disqus_shortname";
-  var disqus_identifier = "http://liulizuel.github.io/2019/05/07/2019-5-7/";
-  var disqus_url = "http://liulizuel.github.io/2019/05/07/2019-5-7/";
-
-  isAgent(getDisqus)
-
-  // determine user agent in China
-  function isAgent(cb) {
-    var url = '//graph.facebook.com/feed?callback=h';
-    var xhr = new XMLHttpRequest();
-    var called = false;
-    xhr.open('GET', url);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        called = true;
-        cb(true);
-      }
-    };
-    xhr.send();
-    // timeout 1s, this facebook API is very fast.
-    setTimeout(function () {
-      if (!called) {
-        xhr.abort();
-        cb(false)
-      }
-    }, 1000);
-  }
-
-  function getDisqus(isAgent) {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
-    dsq.async = true
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
-  }
-</script>
-<!-- disqus 公共JS代码 end -->
-
-
-<script type="text/javascript">
-  (function (d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-
-    if (typeof LivereTower === 'function') { return; }
-
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-</script>
-
-
-  <footer>
-  <div class="copyright">
-    <div>
-      &copy;
-      2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
-    </div>
-    <div>
-      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
-    </div>
-  </div>
-</footer>
-
-
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="/lib/ScrollMagic.min.js"></script>
-<script src="/lib/lodash.min.js"></script>
-<script>
-  document.body.addEventListener('touchstart', function () { });
-
-  // 文章图片预览
-  $("article img").each(function () {
-    var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
-    $(this).wrapAll(strA);
-  });
-
-  // 目录联动
-  let tocLinkList = $('.toc-link')
-
-  let controller = new ScrollMagic.Controller({
-    globalSceneOptions: {
-      triggerHook: 0.01
-    }
-  })
-
-  tocLinkList.each(function (index, elem) {
-    let href = $(this).attr("href");
-    let nextHref = tocLinkList.eq(index + 1).attr("href");
-    let height = href && nextHref ? $(nextHref).offset().top - $(href).offset().top : 0
-
-    new ScrollMagic.Scene({ triggerElement: href })
-      .duration(height)
-      .setClassToggle(".toc [href='" + href + "']", 'active')
-      .addTo(controller)
-  })
-
-  window.addEventListener('load', function () {
-    // 目录联动 图片加载完成后从新计算
-    tocLinkList.each(function (index, elem) {
-      let href = $(this).attr("href");
-      let nextHref = tocLinkList.eq(index + 1).attr("href");
-      let height = href && nextHref ? $(nextHref).offset().top - $(href).offset().top : 0
-
-      new ScrollMagic.Scene({ triggerElement: href })
-        .duration(height)
-        .setClassToggle(".toc [href='" + href + "']", 'active')
-        .addTo(controller)
-    })
-  })
-</script>
-<script src="/lib/jquery.fancybox.min.js"></script>
-
-
-</body>
-</html>
+block content
+    article#post
+        .post-header
+            .title= page.title
+            .container
+                time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.posted')] #[=date(page['date'], config.date_format)] | #[=__('post.modified')] #[=date(page['updated'], config.date_format)]
+                //time.button-hover.post-date #[i.fas.fa-calendar-alt.article-icon(aria-hidden="true")] #[=__('post.modified')] #[=date(page['updated'], config.date_format)]
+                .button-hover.categories
+                    each categories,index in page.categories.data
+                        i.fa.fa-inbox.article-icon(aria-hidden="true")
+                        a.link-a(href=url_for(categories.path)) #[=categories.name]
+                        if(index < page.categories.data.length - 1)
+                            i.fa.fa-angle-right(style="margin: 0 8px;")
+                .button-hover.tags
+                    each tags,index in page.tags.data
+                        i.fa.fa-tag.article-icon(aria-hidden="true")
+                        a.link-a(href=url_for(tags.path)) #[=tags.name]
+                        if(index < page.tags.data.length - 1)
+                            span &nbsp;|&nbsp;
+        .main-content!= page.content
+        if (theme.post_copyright && theme.post_copyright.enable)
+            .post-copyright
+                .post-copyright-author
+                    span.post-copyright-meta= _p('post.copyright.author') + ": "
+                    span.post-copyright-info
+                        - let mailto = `mailto:${config.email}`
+                        a(href=mailto) #[=config.author]
+                .post-copyright-type
+                    span.post-copyright-meta= _p('post.copyright.link') + ": "
+                    span.post-copyright-info
+                        a(href=url_for(page.permalink)) #[=page.permalink]
+                .post-copyright-notice
+                    span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+                    span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+    include includes/pagination.pug
+    //div!= paginator()

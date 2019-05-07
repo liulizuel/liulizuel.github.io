@@ -1,111 +1,75 @@
-<!DOCTYPE html>
-<html lang=>
-  <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="keywords" content>
-  
-    <link rel="icon" href="/favicon.ico">
-  
-    
-  <title>Archives | Hexo</title>
-  <meta name="description" content>
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+extends includes/layout.pug
 
-<body>
-  <header>
-  <div class="header-container">
-    <a class="logo" href="/">
-      <span>Hexo</span>
-    </a>
-    <ul class="right-header">
-      
-        <li class="nav-item">
-          
-            <a href="/" class="item-link">首页</a>
-          
-        </li>
-      
-        <li class="nav-item">
-          
-            <a href="/about" class="item-link">关于</a>
-          
-        </li>
-      
-        <li class="nav-item">
-          
-            <a href="/archives" class="item-link active">归档</a>
-          
-        </li>
-      
-        <li class="nav-item">
-          
-            <a href="/tags" class="item-link">标签</a>
-          
-        </li>
-      
-    </ul>
-  </div>
-</header>
+block content
+    div#tag
+        h1.article-sort-item.title= _p('page.articles') + ' - ' + site.posts.length
+        - var year
+        - page.posts.each(function(article){
+            - var tempYear = date(article.date, 'YYYY')
+            if tempYear !== year
+                - year = tempYear
+                .article-sort-item.year= year
+            .article-sort-item
+                if article.link
+                    time.article-time(datetime=date_xml(article.date))= date(article.date)
+                    a.article-link(href=url_for(article.link) target="_blank")
+                        = article.title || 'No Title'
+                else
+                    time.article-time(datetime=date_xml(article.date))= date(article.date)
+                    a.article-link(href=url_for(article.path))= article.title || 'No Title'
+        - })
+    include includes/pagination.pug
+    // - var categoriesList = list_categories({ show_count: false })
+    // - var tagsList = list_tags({ show_count: false })
+    // - var archivesList = list_archives({ show_count: false })
+    //
+    // div.archive
+    //     if !is_year()
+    //
+    //         h1 Archives
+    //
+    //         if theme.atom
+    //             p The feed is available via&nbsp;
+    //                 a(href=theme.atom) atom
+    //                 span .
+    //             br
+    //
+    //         aside
+    //             h2 Categories
+    //             if categoriesList
+    //                 != categoriesList
+    //             else
+    //                 p None.
+    //         br
+    //
+    //         aside
+    //             h2 Tags
+    //             if tagsList
+    //                 != tagsList
+    //             else
+    //                 p None.
+    //         br
+    //
+    //         aside
+    //             h2 Archives
+    //             if archivesList
+    //                 != archivesList
+    //             else
+    //                 p None.
+    //         br
+    //
+    //     else
+    //
+    //         h1= page.month + '/' + page.year
+    //
+    //         - page.posts.each(function(article){
+    //         .archive-list-item
+    //             if article.link
+    //                 a(href=url_for(article.link) target="_blank")= article.title || 'No Title'
+    //             else
+    //                 a(href=url_for(article.path))= article.title || 'No Title'
+    //             time(datetime=date_xml(article.date))= date(article.date)
+    //         - })
+    //         include includes/pagination.pug
+            //div!= paginator()
 
-  <main id="archive">
-  <div class="content">
-        
-    
-      <div class="year-list">
-        <h3>2019</h3>
-        <ul>
-          
-            <li>
-              <time>2019/05/07</time>
-              <a href="/2019/05/07/2019-5-7/">
-                <span>
-                    2019/5/7
-                </span>
-              </a>
-            </li>
-          
-            <li>
-              <time>2019/05/06</time>
-              <a href="/2019/05/06/hexo-new-test-blog/">
-                <span>
-                    hexo-new-test-blog
-                </span>
-              </a>
-            </li>
-          
-            <li>
-              <time>2019/05/06</time>
-              <a href="/2019/05/06/hello-world/">
-                <span>
-                    Hello World
-                </span>
-              </a>
-            </li>
-          
-        </ul>
-      </div>
-        
-  </div>
-</main>
-
-  <footer>
-  <div class="copyright">
-    <div>
-      &copy;
-      2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
-    </div>
-    <div>
-      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
-    </div>
-  </div>
-</footer>
-
-
-
-</body>
-</html>
